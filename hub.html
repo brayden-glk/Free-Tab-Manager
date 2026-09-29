@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tab Workspaces</title>
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="hub.css">
+  </head>
+  <body>
+    <div class="app">
+      <!-- Sidebar: spaces -->
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <img class="app-mark" src="assets/logo.svg" alt="" width="22" height="22">
+          <span class="app-name">Workspaces</span>
+          <button id="newWorkspaceBtn" class="ghost-btn add-space" type="button" title="New workspace (N)" aria-label="New workspace">+</button>
+        </div>
+
+        <div class="sidebar-search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="Search tabs and spaces" autocomplete="off" spellcheck="false" aria-label="Search">
+          <button id="clearInlineSearch" class="search-clear" type="button" title="Clear" aria-label="Clear search" hidden>✕</button>
+        </div>
+
+        <nav id="spaceList" class="space-list" aria-label="Workspaces"></nav>
+
+        <div class="sidebar-foot">
+          <span id="footMeta"></span>
+          <div class="foot-actions">
+            <button id="exportBtn" class="foot-btn" type="button" title="Download all workspaces as a file you can import in another browser">Export</button>
+            <button id="importBtn" class="foot-btn" type="button" title="Load workspaces from an exported file">Import</button>
+            <input id="importFile" type="file" accept="application/json,.json" hidden>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="main">
+        <!-- Search results view -->
+        <section id="searchView" class="search-view" hidden>
+          <header class="main-head">
+            <div class="head-titles">
+              <h1>Search</h1>
+              <span id="searchMeta" class="subtle"></span>
+            </div>
+            <button id="clearSearchBtn" class="secondary" type="button">Clear</button>
+          </header>
+          <div id="searchWorkspaces" class="chip-row"></div>
+          <div id="searchTabs" class="tab-list card"></div>
+        </section>
+
+        <!-- Workspace detail view -->
+        <section id="workspaceView" class="workspace-view">
+          <header class="main-head">
+            <div class="ws-title">
+              <span id="wsColorDot" class="ws-color-dot"></span>
+              <h1 id="wsName">No workspace</h1>
+              <span id="wsMeta" class="subtle ws-meta"></span>
+            </div>
+            <div class="head-actions">
+              <button id="restoreBtn" type="button" title="Open all of this workspace's tabs in your browser">Open all tabs</button>
+              <button id="saveSessionBtn" class="secondary" type="button" title="Save the tabs open in this window into this workspace (S)">Save open tabs</button>
+              <button id="wsMenuBtn" class="secondary icon-btn" type="button" aria-label="More workspace actions" aria-haspopup="menu">⋯</button>
+            </div>
+          </header>
+
+          <div id="wsBody" class="ws-body">
+            <!-- Open tabs (live session) -->
+            <section class="section" data-container="session">
+              <div class="section-head">
+                <div class="section-title">
+                  <h2>Tabs</h2>
+                  <span id="openTabsCount" class="count-pill"></span>
+                </div>
+              </div>
+              <div id="openTabsList" class="tab-list"></div>
+            </section>
+
+            <!-- Saved tab groups -->
+            <div class="groups-bar">
+              <h2 class="groups-heading">Tab groups</h2>
+              <button id="addGroupBtn" class="link-btn" type="button">+ New group</button>
+            </div>
+            <div id="groupsHost"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <!-- Templates -->
+    <template id="spaceItemTemplate">
+      <div class="space-item" draggable="true" tabindex="0" role="button">
+        <span class="space-dot"></span>
+        <span class="space-name"></span>
+        <span class="space-count"></span>
+        <button class="space-menu ghost-btn" type="button" aria-label="Workspace actions" aria-haspopup="menu" tabindex="-1">⋯</button>
+      </div>
+    </template>
+
+    <template id="groupTemplate">
+      <section class="section group">
+        <div class="section-head">
+          <div class="section-title">
+            <h2 class="group-name"></h2>
+            <span class="group-count count-pill"></span>
+          </div>
+          <div class="section-actions">
+            <button class="link-btn group-open" type="button">Open all</button>
+            <button class="ghost-btn icon-btn group-menu" type="button" aria-label="Group actions" aria-haspopup="menu">⋯</button>
+          </div>
+        </div>
+        <div class="tab-list group-tabs"></div>
+      </section>
+    </template>
+
+    <template id="tabTemplate">
+      <article class="tab-row" draggable="true">
+        <span class="drag-grip" aria-hidden="true">⋮⋮</span>
+        <img class="tab-favicon" alt="" width="16" height="16">
+        <div class="tab-main">
+          <span class="tab-title"></span>
+          <span class="tab-url"></span>
+        </div>
+        <span class="tab-open-dot" title="Open in this window" aria-hidden="true"></span>
+        <div class="tab-actions">
+          <button class="icon-act tab-menu" type="button" title="More actions" aria-label="Tab actions" aria-haspopup="menu">⋯</button>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="hub.js"></script>
+  </body>
+</html>

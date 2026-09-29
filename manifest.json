@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Workspaces",
+  "description": "Workona-style workspace and tab manager. Organize unlimited tabs into workspaces and tab groups, autosave sessions, switch between spaces from a dedicated hub tab, and sync your workspaces across browsers signed into the same account.",
+  "version": "3.2.0",
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "favicon"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open Tab Workspaces hub",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png"
+    }
+  },
+  "commands": {
+    "open-hub": {
+      "suggested_key": {
+        "default": "Alt+Shift+W"
+      },
+      "description": "Open the Tab Workspaces hub"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["_favicon/*", "hub.html"],
+      "matches": ["<all_urls>"],
+      "extension_ids": ["*"]
+    }
+  ]
+}
